@@ -26,7 +26,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp, ViewTasksPage, CreateTaskPage, AddCategoryPage
+    MyApp, ViewTasksPage, AddTaskPage, AddCategoryPage
   ],
   providers: [
     StatusBar, SplashScreen, {provide: ErrorHandler, useClass: IonicErrorHandler},
