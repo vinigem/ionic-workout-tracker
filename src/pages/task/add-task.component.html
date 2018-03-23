@@ -11,7 +11,7 @@
   <ion-list>
     <ion-item>
       <ion-label floating>Title</ion-label>
-      <ion-input type="text" [(ngModel)]="task.title"></ion-input>
+      <ion-input type="text" [(ngModel)]="task.title" [disabled]="edit"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -40,7 +40,7 @@
     </ion-item>
 
     <ion-item padding>
-      <button ion-button block (click)="saveTask()">Save</button>
+      <button ion-button block (click)="saveTask()">{{edit ? 'Update' : 'Save'}}</button>
     </ion-item>
   
   </ion-list>

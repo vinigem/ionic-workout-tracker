@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { TaskService } from '../../service/task.service';
 import { WorkoutService } from '../../service/workout.service';
+import { AddTaskPage } from './add-task.component';
 
 @Component({
   selector: 'view-tasks',
@@ -16,7 +18,7 @@ export class ViewTasksPage implements OnInit {
 
 
   constructor(private taskService: TaskService, private workoutService: WorkoutService,
-   private toastCtrl: ToastController) { }
+   private toastCtrl: ToastController, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.loadTasks();
@@ -36,7 +38,11 @@ export class ViewTasksPage implements OnInit {
     });
   }
 
-  delete(task: any) {
+  editTask(task: any) {
+    this.navCtrl.push(AddTaskPage, task);
+  }
+
+  deleteTask(task: any) {
     this.taskService.deleteTask(task.title)
       .subscribe((status: boolean) => {
         let message: string;
@@ -54,7 +60,7 @@ export class ViewTasksPage implements OnInit {
         toast.present(); 
       });
   }
-
+  
   startTask(task: any) {
     this.workout = {
       task: task.title,

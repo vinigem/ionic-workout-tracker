@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { CategoryService } from '../../service/category.service';
 import { TaskService } from '../../service/task.service';
 
@@ -10,13 +11,23 @@ import { TaskService } from '../../service/task.service';
 export class AddTaskPage implements OnInit {
 
   task: any = {};
-  categories: Array<any>
+  categories: Array<any>;
+  edit: boolean;
 
   constructor(private categoryService: CategoryService, private taskService: TaskService,
-   public toastCtrl: ToastController) { }
+   public toastCtrl: ToastController, private navCtrl: NavController, private navParams: NavParams) { }
 
   ngOnInit() {
     this.loadCategories();
+    if(this.navParams.get('title')) {
+      this.task = {
+        title: this.navParams.get('title'),
+        note: this.navParams.get('note'),
+        calories: this.navParams.get('calories'),
+        category: this.navParams.get('category')
+      };
+      this.edit = true;
+    }
   }
 
   loadCategories() {
@@ -48,7 +59,11 @@ export class AddTaskPage implements OnInit {
         .subscribe((status: boolean) => {
           if(status) {
             message = 'Task saved successfully';
-            this.task = {};
+            if(this.edit) {
+              this.goBack();
+            } else {
+              this.task = {};
+            }
           } else {
             message = 'Task was not saved';
           }
@@ -74,6 +89,10 @@ export class AddTaskPage implements OnInit {
     if(this.task.calories > 0) {
       this.task.calories = parseFloat((parseFloat(this.task.calories) - 0.1).toFixed(1));
     }
+  }
+
+  goBack() {
+    this.navCtrl.pop();
   }
 
 }
