@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Add Category</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-searchbar [(ngModel)]="searchString" (ionInput)="setFilteredItems()"></ion-searchbar>
+
+    <ion-list>
+        <ion-item>
+            <ion-label floating>New Category</ion-label>
+            <ion-input type="text" [(ngModel)]="newCategory"></ion-input>
+            <button ion-button item-end (click)="save();" [disabled]="!newCategory || newCategory.length < 0">
+                <ion-icon name='md-add-circle'></ion-icon>
+            </button>
+        </ion-item>
+
+        <ion-item *ngFor="let category of filteredCategories; let idx = index;">
+            <ion-input type="text" [(ngModel)]="category.name" [disabled]="!category.enabled"></ion-input>
+            <button *ngIf="!category.enabled" ion-button item-end (click)="category.enabled=true">
+                <ion-icon name='create'></ion-icon>
+            </button>
+            <button *ngIf="category.enabled" ion-button item-end color="secondary"
+             (click)="update(category);category.enabled=false">
+                <ion-icon name='checkmark-circle'></ion-icon>
+            </button>
+            <button ion-button item-end color="danger" (click)="delete(category, idx);">
+                <ion-icon name='trash'></ion-icon>
+            </button>
+        </ion-item>
+    </ion-list>
+</ion-content>

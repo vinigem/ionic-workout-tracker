@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>View Tasks</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar [(ngModel)]="searchString" (ionInput)="setFilteredItems()"></ion-searchbar>
+ 
+  <ion-grid *ngFor="let task of fileteredTasks; let idx = index;" class="task-wrapper">
+    <ion-row>
+      <ion-col>
+        <ion-label>{{task.title}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button style="width: 100%" [disabled]="workout != null">
+          <ion-icon name='create'></ion-icon>
+        </button>
+      </ion-col>
+      
+      <ion-col>
+        <button ion-button style="width: 100%" color="danger" (click)="delete(task)" [disabled]="workout != null">
+          <ion-icon name='trash'></ion-icon>
+        </button>
+      </ion-col>
+      
+      <ion-col>
+        <button ion-button style="width: 100%" color="secondary" (click)="startTask(task)"
+          [disabled]="(workout != null && task.title === workout.task) || workout != null">
+          <ion-icon name='stopwatch'></ion-icon>
+        </button>
+      </ion-col>
+      
+      <ion-col>
+        <button ion-button style="width: 100%" color="danger" (click)="stopTask()"
+          [disabled]="workout != null && task.title !== workout.task">
+          <ion-icon name='stopwatch'></ion-icon>
+        </button>
+      </ion-col>
+  
+    </ion-row>
+  </ion-grid>
+    
+</ion-content>
