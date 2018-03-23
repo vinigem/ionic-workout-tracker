@@ -48,7 +48,8 @@ export class ViewTasksPage implements OnInit {
         }
         let toast = this.toastCtrl.create({
           message: message,
-          duration: 3000
+          duration: 3000,
+          position: 'top'
         });
         toast.present(); 
       });
@@ -74,7 +75,8 @@ export class ViewTasksPage implements OnInit {
         }
         let toast = this.toastCtrl.create({
           message: message,
-          duration: 3000
+          duration: 3000,
+          position: 'top'
         });
         toast.present();
       });

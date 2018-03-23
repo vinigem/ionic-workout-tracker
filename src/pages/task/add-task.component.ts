@@ -1,14 +1,79 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { ToastController } from 'ionic-angular';
+import { CategoryService } from '../../service/category.service';
+import { TaskService } from '../../service/task.service';
 
 @Component({
   selector: 'add-task',
   templateUrl: 'add-task.component.html'
 })
-export class AddTaskPage {
+export class AddTaskPage implements OnInit {
 
-  constructor(public navCtrl: NavController) {
+  task: any = {};
+  categories: Array<any>
 
+  constructor(private categoryService: CategoryService, private taskService: TaskService,
+   public toastCtrl: ToastController) { }
+
+  ngOnInit() {
+    this.loadCategories();
+  }
+
+  loadCategories() {
+    this.categoryService.getCategories()
+      .subscribe((data: Array<any>) => {
+        this.categories = data;
+      });
+  }
+
+  saveTask() {
+    let message: string;
+    if(this.task.title == null || this.task.title.trim().length == 0) {
+      message = 'Please add title';
+    } else if (this.task.calories <= 0) {
+      message = 'Please set calories burnt per minute greater than 0';
+    } else if (this.task.category == null || this.task.category.trim().length == 0) {
+      message = 'Please select a category';
+    }
+
+    if(message != null) {
+      let toast = this.toastCtrl.create({
+          message: message,
+          duration: 3000,
+          position: 'top'
+        });
+        toast.present();
+    } else {
+      this.taskService.saveTask(this.task)
+        .subscribe((status: boolean) => {
+          if(status) {
+            message = 'Task saved successfully';
+            this.task = {};
+          } else {
+            message = 'Task was not saved';
+          }
+          let toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'top'
+          });
+          toast.present();
+        });
+    }
+  }
+
+  addCategory() {
+
+  }
+
+  increment() {
+    this.task.calories = parseFloat((parseFloat(this.task.calories) + 0.1).toFixed(1));
+  }
+
+  decrement() {
+    if(this.task.calories > 0) {
+      this.task.calories = parseFloat((parseFloat(this.task.calories) - 0.1).toFixed(1));
+    }
   }
 
 }
