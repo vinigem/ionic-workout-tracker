@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'view-tasks',
-  templateUrl: 'view-tasks.component.html'
+  selector: 'add-task',
+  templateUrl: 'add-task.component.html'
 })
-export class CreateTaskPage {
+export class AddTaskPage {
 
   constructor(public navCtrl: NavController) {
 

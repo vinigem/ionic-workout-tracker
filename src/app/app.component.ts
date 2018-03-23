@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ViewTasksPage } from '../pages/task/view-tasks.component';
-import { CreateTaskPage } from '../pages/task/create-task.component';
+import { AddTaskPage } from '../pages/task/add-task.component';
 import { AddCategoryPage } from '../pages/category/add-category.component';
 
 
@@ -23,7 +23,7 @@ export class MyApp {
 
     this.pages = [
       { title: 'View Tasks', component: ViewTasksPage },
-      { title: 'Create Task', component: CreateTaskPage },
+      { title: 'Add Task', component: AddTaskPage },
       { title: 'Add Category', component: AddCategoryPage }
     ];
 

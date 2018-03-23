@@ -6,7 +6,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { ViewTasksPage } from '../pages/task/view-tasks.component';
-import { CreateTaskPage } from '../pages/task/create-task.component';
+import { AddTaskPage } from '../pages/task/add-task.component';
 import { AddCategoryPage } from '../pages/category/add-category.component';
 
 import { CategoryService } from '../service/category.service';
@@ -18,7 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 @NgModule({
   declarations: [
-    MyApp, ViewTasksPage, CreateTaskPage, AddCategoryPage
+    MyApp, ViewTasksPage, AddTaskPage, AddCategoryPage
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
