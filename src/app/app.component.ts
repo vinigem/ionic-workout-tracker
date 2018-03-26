@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ViewTasksPage } from '../pages/task/view-tasks.component';
 import { AddTaskPage } from '../pages/task/add-task.component';
 import { AddCategoryPage } from '../pages/category/add-category.component';
+import { TrackPage } from '../pages/track/track.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class MyApp {
     this.pages = [
       { title: 'View Tasks', component: ViewTasksPage },
       { title: 'Add Task', component: AddTaskPage },
-      { title: 'Add Category', component: AddCategoryPage }
+      { title: 'Add Category', component: AddCategoryPage },
+      { title: 'Track', component: TrackPage }
     ];
 
   }

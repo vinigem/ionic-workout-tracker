@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Track</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list *ngIf="trackData">
+        <ion-item>
+            <ion-label>Today's Workout Time: {{trackData.dayWorkoutTime}} mins</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Week's Workout Time: {{trackData.weekWorkoutTime}} mins</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Month's Workout Time: {{trackData.monthWorkoutTime}} mins</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <div padding *ngIf="weekChartData" class="chart">
+        <canvas baseChart
+              [datasets]="weekChartData.data"
+              [labels]="weekChartData.labels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"></canvas>
+        <h3> Week Total Calories Burnt : {{weekTotalCalories}}</h3>
+    </div>
+
+    <div padding *ngIf="monthChartData" class="chart">
+        <canvas baseChart
+              [datasets]="monthChartData.data"
+              [labels]="monthChartData.labels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"></canvas>
+        <h3> Month Total Calories Burnt : {{monthTotalCalories}}</h3>
+    </div>
+
+    <div padding *ngIf="yearChartData" class="chart">
+        <canvas baseChart
+              [datasets]="yearChartData.data"
+              [labels]="yearChartData.labels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"></canvas>
+        <h3> Year Total Calories Burnt : {{yearTotalCalories}}</h3>
+    </div>
+</ion-content>
