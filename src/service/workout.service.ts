@@ -4,7 +4,7 @@ import { Observable} from 'rxjs/Rx';
 
 
 const GET_ALL_WORKOUTS_SERVICE_URL = 'https://workout-tracker-server.herokuapp.com/view-workouts';
-const SAVE_WORKOUT_SERVICE_URL = 'https://workout-tracker-server.herokuapp.com/save-workoutconst';
+const SAVE_WORKOUT_SERVICE_URL = 'https://workout-tracker-server.herokuapp.com/save-workout';
 const GET_TRACK_DATA = 'https://workout-tracker-server.herokuapp.com/get-workout-track-data';
 
 @Injectable()
