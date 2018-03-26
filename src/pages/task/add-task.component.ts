@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { NavController, NavParams } from 'ionic-angular';
+import { AddCategoryPage } from '../category/add-category.component';
 import { CategoryService } from '../../service/category.service';
 import { TaskService } from '../../service/task.service';
 
@@ -14,8 +15,8 @@ export class AddTaskPage implements OnInit {
   categories: Array<any>;
   edit: boolean;
 
-  constructor(private categoryService: CategoryService, private taskService: TaskService,
-   public toastCtrl: ToastController, private navCtrl: NavController, private navParams: NavParams) { }
+  constructor(public categoryService: CategoryService, public taskService: TaskService,
+   public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams) { }
 
   ngOnInit() {
     this.loadCategories();
@@ -35,6 +36,10 @@ export class AddTaskPage implements OnInit {
       .subscribe((data: Array<any>) => {
         this.categories = data;
       });
+  }
+
+  addCategory() {
+    this.navCtrl.push(AddCategoryPage);
   }
 
   saveTask() {
@@ -75,10 +80,6 @@ export class AddTaskPage implements OnInit {
           toast.present();
         });
     }
-  }
-
-  addCategory() {
-
   }
 
   increment() {

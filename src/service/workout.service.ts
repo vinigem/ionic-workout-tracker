@@ -9,7 +9,7 @@ const SAVE_WORKOUT_SERVICE_URL = 'https://workout-tracker-server.herokuapp.com/s
 @Injectable()
 export class WorkoutService {
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(public httpClient: HttpClient) { }
 
     getWorkouts(): Observable<any> {
         return this.httpClient.get(GET_ALL_WORKOUTS_SERVICE_URL);

@@ -9,7 +9,7 @@ const DELETE_CATEGORY_SERVICE_URL = 'https://workout-tracker-server.herokuapp.co
 @Injectable()
 export class CategoryService {
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(public httpClient: HttpClient) {}
 
     getCategories(): Observable<any> {
         return this.httpClient.get(GET_ALL_CATEGORIES_SERVICE_URL);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { CategoryService } from '../../service/category.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class AddCategoryPage implements OnInit {
   newCategory: string;
   searchString: string = '';
 
-  constructor(private categoryService: CategoryService, private toastCtrl: ToastController) {}
+  constructor(public categoryService: CategoryService, public toastCtrl: ToastController,
+   public navCtrl: NavController) {}
 
   ngOnInit() {
     this.loadCategories();
@@ -92,6 +94,10 @@ export class AddCategoryPage implements OnInit {
         });
         toast.present(); 
       });  
+  }
+
+  goBack() {
+    this.navCtrl.pop();
   }
 
 }

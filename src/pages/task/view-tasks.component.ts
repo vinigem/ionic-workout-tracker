@@ -17,8 +17,8 @@ export class ViewTasksPage implements OnInit {
   workout: any;
 
 
-  constructor(private taskService: TaskService, private workoutService: WorkoutService,
-   private toastCtrl: ToastController, private navCtrl: NavController) { }
+  constructor(public taskService: TaskService, public workoutService: WorkoutService,
+   public toastCtrl: ToastController, public navCtrl: NavController) { }
 
   ngOnInit() {
     this.loadTasks();

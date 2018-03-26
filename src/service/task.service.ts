@@ -10,7 +10,7 @@ const DELETE_TASK_SERVICE_URL = 'https://workout-tracker-server.herokuapp.com/de
 @Injectable()
 export class TaskService {
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(public httpClient: HttpClient) { }
 
     getTasks(): Observable<any> {
         return this.httpClient.get(GET_ALL_TASKS_SERVICE_URL);
