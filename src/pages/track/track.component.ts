@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkoutService } from '../../service/workout.service';
+import { WorkoutService } from '../../services/workout.service';
 
 @Component({
   selector: 'track',

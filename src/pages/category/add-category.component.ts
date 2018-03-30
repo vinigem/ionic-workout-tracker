@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
-import { CategoryService } from '../../service/category.service';
+import { ToastController, NavController } from 'ionic-angular';
+
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'add-category',

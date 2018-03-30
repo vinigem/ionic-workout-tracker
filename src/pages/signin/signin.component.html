@@ -1,0 +1,23 @@
+<ion-content padding class="appBackground">
+  <ion-card>
+    <ion-card-header>
+      Sign In
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Username</ion-label>
+          <ion-input type="text" [(ngModel)]="userData.username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
+        </ion-item>
+
+        <button ion-button block (click)="signin()">Sign In</button>
+        <p padding>New User? <a href="#" (click)="loadSignUpPage()">Sign Up</a></p>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from 'ionic-angular';
-import { NavController, NavParams } from 'ionic-angular';
+import { ToastController, NavController, NavParams } from 'ionic-angular';
+
 import { AddCategoryPage } from '../category/add-category.component';
-import { CategoryService } from '../../service/category.service';
-import { TaskService } from '../../service/task.service';
+import { CategoryService } from '../../services/category.service';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'add-task',

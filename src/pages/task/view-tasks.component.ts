@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
-import { TaskService } from '../../service/task.service';
-import { WorkoutService } from '../../service/workout.service';
+import { ToastController, NavController } from 'ionic-angular';
+
+import { TaskService } from '../../services/task.service';
+import { WorkoutService } from '../../services/workout.service';
 import { AddTaskPage } from './add-task.component';
 
 @Component({
