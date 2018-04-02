@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable} from 'rxjs/Rx';
+import { Storage } from '@ionic/storage';
 
 const LOGIN_URL = 'https://workout-tracker-server.herokuapp.com/login';
 const REGISTER_URL = 'https://workout-tracker-server.herokuapp.com/register';
@@ -8,22 +9,25 @@ const LOGOUT_URL = 'https://workout-tracker-server.herokuapp.com/logout';
 
 @Injectable()
 export class AuthService implements HttpInterceptor {
-
-    loggedIn: boolean;
-
-    constructor(public httpClient : HttpClient) {}
-
+    
+    constructor(public httpClient : HttpClient, public storage: Storage) {
+        this.storage.get('user').then(user => {
+            if(user != null) {
+                this.login(JSON.stringify(user));
+            }
+        })
+    }
+    
     register(user: any): Observable<any> {
         return this.httpClient.post(REGISTER_URL, user);
     }
 
     login(user: any): Observable<any> {
         let headers = new HttpHeaders();
-        headers.append('Accept', 'application/json')
         var base64Credential: string = btoa( user.username+ ':' + user.password);
         headers.append("Authorization", "Basic " + base64Credential);
 
-        return this.httpClient.post(LOGIN_URL, user, { headers });
+        return this.httpClient.post(LOGIN_URL, user, { headers, observe: 'response' });
     }
 
     logout() {
@@ -35,7 +39,6 @@ export class AuthService implements HttpInterceptor {
 
     setToken(token: string) {
         localStorage.setItem('access_token', token);
-        this.loggedIn = true;
     }
 
     getToken() {

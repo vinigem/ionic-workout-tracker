@@ -42,7 +42,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar, SplashScreen, {provide: ErrorHandler, useClass: IonicErrorHandler},
     CategoryService, TaskService, WorkoutService, AuthService, 
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthService, multi: true }
   ]
 })
 export class AppModule {}
