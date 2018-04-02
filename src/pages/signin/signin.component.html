@@ -1,22 +1,28 @@
-<ion-content padding class="appBackground">
+<ion-content padding>
   <ion-card>
     <ion-card-header>
       Sign In
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item>
-          <ion-label floating>Username</ion-label>
-          <ion-input type="text" [(ngModel)]="userData.username"></ion-input>
-        </ion-item>
+        <form [formGroup]="signInForm" (ngSubmit)="signin()">
+          <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input type="text" formControlName="username" (keydown.space)="$event.preventDefault();"></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-label floating>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" formControlName="password" (keydown.space)="$event.preventDefault();"></ion-input>
+          </ion-item>
 
-        <button ion-button block (click)="signin()">Sign In</button>
-        <p padding>New User? <a href="#" (click)="loadSignUpPage()">Sign Up</a></p>
+          <div padding>
+            <button type="submit" ion-button block [disabled]="!signInForm.valid">Sign In</button>
+          </div>
+        </form>
+        
+        <p padding>New User? <a href="#" class="link" (click)="loadSignUpPage();">Sign Up</a></p>
+      
       </ion-list>
     </ion-card-content>
   </ion-card>

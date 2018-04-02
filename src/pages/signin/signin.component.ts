@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToastController, NavController } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SignUpPage } from '../signup/signup.component';
+import { ViewTasksPage } from '../task/view-tasks.component';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -10,10 +12,34 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignInPage {
 
-    userData = {};
+    signInForm : FormGroup;
 
     constructor(public toastCtrl: ToastController, public navCtrl: NavController,
-        public authService: AuthService) {}
+        public authService: AuthService, public fb: FormBuilder) {
+        this.signInForm = this.fb.group({  
+            'username': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+            'password': ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+        });
+    }
+
+    signin() {
+        const user = this.signInForm.value;
+        this.authService.login(user)
+            .subscribe((user) => {
+                if(user) {
+                    const token = btoa( user.username+ ':' + user.password);
+                    this.authService.setToken(token);
+                    this.navCtrl.setRoot(ViewTasksPage);
+                } else {
+                    let toast = this.toastCtrl.create({
+                        message: 'Sign In failed',
+                        duration: 3000,
+                        position: 'top'
+                    });
+                    toast.present();
+                }
+            });    
+    }
 
     loadSignUpPage() {
         this.navCtrl.setRoot(SignUpPage);

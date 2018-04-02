@@ -5,29 +5,33 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item>
-          <ion-label floating>Name</ion-label>
-          <ion-input type="text" [(ngModel)]="userData.name"></ion-input>
-        </ion-item>
+        <form [formGroup]="signUpForm" (ngSubmit)="signup()">
+          <ion-item>
+            <ion-label floating>Name</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-label floating>Email</ion-label>
-          <ion-input type="text" [(ngModel)]="userData.email"></ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email" formControlName="email" (keydown.space)="$event.preventDefault();"></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-label floating>Username</ion-label>
-          <ion-input type="text" [(ngModel)]="userData.username"></ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input type="text" formControlName="username" (keydown.space)="$event.preventDefault();"></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-label floating>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" formControlName="password" (keydown.space)="$event.preventDefault();"></ion-input>
+          </ion-item>
 
-        <button ion-button block (click)="signup()">Sign up</button>
-        
-        <p padding>Already Registered ? <a href="#" (click)="loadSignInPage()">Sign In</a></p>
+          <div padding>
+            <button type="submit" ion-button block [disabled]="!signUpForm.valid">Sign up</button>
+          </div>
+        </form>
+        <p padding>Already Registered ? <a href="#" class="link" (click)="loadSignInPage()">Sign In</a></p>
+      
       </ion-list>
     </ion-card-content>
   </ion-card>

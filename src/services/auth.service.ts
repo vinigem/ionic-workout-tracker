@@ -1,34 +1,58 @@
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable} from 'rxjs/Rx';
 
-const AUTH_URL = '';
-const REGISTER_URL = '';
+const LOGIN_URL = 'https://workout-tracker-server.herokuapp.com/login';
+const REGISTER_URL = 'https://workout-tracker-server.herokuapp.com/register';
+const LOGOUT_URL = 'https://workout-tracker-server.herokuapp.com/logout';
 
 @Injectable()
 export class AuthService implements HttpInterceptor {
 
-  constructor(public httpClient : HttpClient) {}
+    loggedIn: boolean;
 
-  register(data): Observable<any> {
-    return this.httpClient.post(REGISTER_URL, data);
-  }
+    constructor(public httpClient : HttpClient) {}
 
-  authenticate(data): Observable<any> {
-    return this.httpClient.post(AUTH_URL, data);
-  }
+    register(user: any): Observable<any> {
+        return this.httpClient.post(REGISTER_URL, user);
+    }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-     const token = sessionStorage.getItem('token');
-    if ((AUTH_URL.indexOf(request.url) === -1 || REGISTER_URL.indexOf(request.url) === -1) && token) {
-        // Add auth token
-        request = request.clone({
-            setHeaders: {
-                Authorization: `Basic ${token}`
-            }
+    login(user: any): Observable<any> {
+        let headers = new HttpHeaders();
+        headers.append('Accept', 'application/json')
+        var base64Credential: string = btoa( user.username+ ':' + user.password);
+        headers.append("Authorization", "Basic " + base64Credential);
+
+        return this.httpClient.post(LOGIN_URL, user, { headers });
+    }
+
+    logout() {
+        return this.httpClient.post(LOGOUT_URL, {})
+        .subscribe(() => {
+            localStorage.removeItem('access_token');
         });
     }
-    return next.handle(request);
-}
+
+    setToken(token: string) {
+        localStorage.setItem('access_token', token);
+        this.loggedIn = true;
+    }
+
+    getToken() {
+        return localStorage.getItem('access_token');
+    }
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const token = localStorage.getItem('access_token');
+        if ((LOGIN_URL.indexOf(request.url) === -1 || REGISTER_URL.indexOf(request.url) === -1) && token) {
+            // Add auth token
+            request = request.clone({
+                setHeaders: {
+                    Authorization: `Basic ${token}`
+                }
+            });
+        }
+        return next.handle(request);
+    }
 
 }

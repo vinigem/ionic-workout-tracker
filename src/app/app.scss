@@ -36,3 +36,25 @@ ion-content {
     background: #fff;
     margin-bottom: 10px;
 }
+
+signin, signup {
+    ion-card {
+        background-color: #eeeeff !important;
+        margin: 10% auto !important;
+        ion-card-header {
+            text-align: center;
+            font-size: xx-large !important;
+            text-transform: uppercase;
+        }
+        ion-item {
+            background-color: #0e2f44 !important;
+            color: #fff !important;
+            border-radius: 5px !important;
+            margin: 6px 0 !important; 
+        }
+        .link {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+}
