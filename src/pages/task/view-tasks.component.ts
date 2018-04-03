@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, NavController } from 'ionic-angular';
+import { ToastController, NavController, Events } from 'ionic-angular';
 
 import { TaskService } from '../../services/task.service';
 import { WorkoutService } from '../../services/workout.service';
@@ -16,10 +16,15 @@ export class ViewTasksPage implements OnInit {
   fileteredTasks: any;
   searchString: string = '';
   workout: any;
-
-
+  workoutPopup: any;
+  
   constructor(public taskService: TaskService, public workoutService: WorkoutService,
-   public toastCtrl: ToastController, public navCtrl: NavController, public authService: AuthService) { }
+   public toastCtrl: ToastController, public navCtrl: NavController, public authService: AuthService,
+   public events: Events) {
+     events.subscribe('stoppedTimer', () => {
+            this.stopTask();
+        });
+   }
 
   ngOnInit() {
     this.loadTasks();
@@ -67,6 +72,7 @@ export class ViewTasksPage implements OnInit {
       task: task.title,
       startTime: new Date()
     };
+    this.events.publish('showTimer', this.workout.startTime);
   }
 
   stopTask() {
@@ -89,5 +95,6 @@ export class ViewTasksPage implements OnInit {
         toast.present();
       });
   }
+ 
 
 }

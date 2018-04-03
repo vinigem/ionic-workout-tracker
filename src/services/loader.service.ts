@@ -40,13 +40,16 @@ export class LoaderService implements HttpInterceptor {
     }
 
     showOverlay() {
+        console.log('show');
         this.loader = this.loadingCtrl.create({
-            content: 'Please wait...'
+            content: 'Please wait...',
+            duration: 2000
         });
         this.loader.present();
     }
 
     hideOverlay() {
+        console.log('hide');
         this.loader.dismiss();
     }
 

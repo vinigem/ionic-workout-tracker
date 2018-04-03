@@ -18,33 +18,37 @@
     </ion-row>
 
     <ion-row>
-      <ion-col>
+      <ion-col style="width: 30%">
         <button ion-button style="width: 100%" (click)="editTask(task);" [disabled]="workout != null">
-          <ion-icon name='create'></ion-icon>
+          <ion-icon name='create'></ion-icon>&nbsp; Edit
         </button>
       </ion-col>
       
-      <ion-col>
+      <ion-col style="width: 30%">
         <button ion-button style="width: 100%" color="danger" (click)="deleteTask(task);" [disabled]="workout != null">
-          <ion-icon name='trash'></ion-icon>
+          <ion-icon name='trash'></ion-icon>&nbsp; Delete
         </button>
       </ion-col>
       
-      <ion-col>
+      <ion-col style="width: 30%">
         <button ion-button style="width: 100%" color="secondary" (click)="startTask(task);"
           [disabled]="(workout != null && task.title === workout.task) || workout != null">
-          <ion-icon name='stopwatch'></ion-icon>
+          <ion-icon name='stopwatch'></ion-icon>&nbsp; Start
         </button>
       </ion-col>
-      
+      <!--
       <ion-col>
         <button ion-button style="width: 100%" color="danger" (click)="stopTask();"
           [disabled]="(workout != null && task.title !== workout.task) || workout == null">
           <ion-icon name='stopwatch'></ion-icon>
         </button>
       </ion-col>
-  
+      -->
     </ion-row>
   </ion-grid>
-    
+  
+  <timer></timer>  
+
 </ion-content>
+
+

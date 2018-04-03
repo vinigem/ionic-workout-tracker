@@ -10,6 +10,7 @@ import { MyApp } from './app.component';
 import { SignInPage } from '../pages/signin/signin.component';
 import { SignUpPage } from '../pages/signup/signup.component';
 import { ViewTasksPage } from '../pages/task/view-tasks.component';
+import { Timer } from '../pages/task/timer.component';
 import { AddTaskPage } from '../pages/task/add-task.component';
 import { AddCategoryPage } from '../pages/category/add-category.component';
 import { TrackPage } from '../pages/track/track.component';
@@ -25,7 +26,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 @NgModule({
   declarations: [
-    MyApp, SignInPage, SignUpPage, ViewTasksPage, AddTaskPage, AddCategoryPage, TrackPage
+    MyApp, SignInPage, SignUpPage, ViewTasksPage, Timer, AddTaskPage, AddCategoryPage, TrackPage
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
@@ -37,7 +38,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp, SignInPage, SignUpPage, ViewTasksPage, AddTaskPage, AddCategoryPage, TrackPage
+    MyApp, SignInPage, SignUpPage, ViewTasksPage, Timer, AddTaskPage, AddCategoryPage, TrackPage
   ],
   providers: [
     StatusBar, SplashScreen, {provide: ErrorHandler, useClass: IonicErrorHandler},
