@@ -16,7 +16,7 @@ import { TrackPage } from '../pages/track/track.component';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ViewTasksPage;
+  rootPage: any = SignInPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -36,15 +36,11 @@ export class MyApp {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-      const accessToken = localStorage.getItem('access_token');
-      if(accessToken == null) {
-        this.nav.setRoot(SignInPage);  
-      }
     });
   }
 
   openPage(page) {
     this.nav.setRoot(page.component);
   }
+  
 }

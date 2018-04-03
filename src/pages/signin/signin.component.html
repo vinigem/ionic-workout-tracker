@@ -5,7 +5,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <form [formGroup]="signInForm" (ngSubmit)="signin()">
+        <form [formGroup]="signInForm" (ngSubmit)="signin(signInForm.value)">
           <ion-item>
             <ion-label floating>Username</ion-label>
             <ion-input type="text" formControlName="username" (keydown.space)="$event.preventDefault();"></ion-input>

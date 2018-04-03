@@ -3,6 +3,7 @@ import { ToastController, NavController } from 'ionic-angular';
 
 import { TaskService } from '../../services/task.service';
 import { WorkoutService } from '../../services/workout.service';
+import { AuthService } from '../../services/auth.service';
 import { AddTaskPage } from './add-task.component';
 
 @Component({
@@ -18,7 +19,7 @@ export class ViewTasksPage implements OnInit {
 
 
   constructor(public taskService: TaskService, public workoutService: WorkoutService,
-   public toastCtrl: ToastController, public navCtrl: NavController) { }
+   public toastCtrl: ToastController, public navCtrl: NavController, public authService: AuthService) { }
 
   ngOnInit() {
     this.loadTasks();
@@ -70,6 +71,7 @@ export class ViewTasksPage implements OnInit {
 
   stopTask() {
     this.workout.endTime = new Date();
+    this.workout.user = this.authService.getUsername();
     this.workoutService.saveWorkout(this.workout)
       .subscribe((status: boolean) => {
         let message: string;

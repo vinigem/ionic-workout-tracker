@@ -1,21 +1,24 @@
 import {Injectable} from '@angular/core';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable} from 'rxjs/Rx';
-import { Storage } from '@ionic/storage';
 
-const LOGIN_URL = 'https://workout-tracker-server.herokuapp.com/login';
-const REGISTER_URL = 'https://workout-tracker-server.herokuapp.com/register';
+const LOGIN_URL:string = 'https://workout-tracker-server.herokuapp.com/login';
+const REGISTER_URL:string = 'https://workout-tracker-server.herokuapp.com/register';
 const LOGOUT_URL = 'https://workout-tracker-server.herokuapp.com/logout';
 
 @Injectable()
 export class AuthService implements HttpInterceptor {
+
+    username: string;
     
-    constructor(public httpClient : HttpClient, public storage: Storage) {
-        this.storage.get('user').then(user => {
-            if(user != null) {
-                this.login(JSON.stringify(user));
-            }
-        })
+    constructor(public httpClient : HttpClient) {}
+
+    getUsername(): string {
+        return this.username;
+    }
+
+    setUsername(username: string) {
+        this.username = username;
     }
     
     register(user: any): Observable<any> {
@@ -24,7 +27,7 @@ export class AuthService implements HttpInterceptor {
 
     login(user: any): Observable<any> {
         let headers = new HttpHeaders();
-        var base64Credential: string = btoa( user.username+ ':' + user.password);
+        var base64Credential: string = btoa(user.username + ':' + user.password);
         headers.append("Authorization", "Basic " + base64Credential);
 
         return this.httpClient.post(LOGIN_URL, user, { headers, observe: 'response' });
@@ -37,19 +40,19 @@ export class AuthService implements HttpInterceptor {
         });
     }
 
-    setToken(token: string) {
+    setUserToken(user: any) {
+        const token = btoa(user.username + ':' + user.password);
         localStorage.setItem('access_token', token);
+        this.username = user.username;
     }
-
-    getToken() {
-        return localStorage.getItem('access_token');
-    }
+  
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = localStorage.getItem('access_token');
-        if ((LOGIN_URL.indexOf(request.url) === -1 || REGISTER_URL.indexOf(request.url) === -1) && token) {
+        if (REGISTER_URL != request.url && token) {
             // Add auth token
             request = request.clone({
+                withCredentials: true,
                 setHeaders: {
                     Authorization: `Basic ${token}`
                 }

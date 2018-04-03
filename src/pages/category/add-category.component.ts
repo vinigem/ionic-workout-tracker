@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController, NavController } from 'ionic-angular';
 
 import { CategoryService } from '../../services/category.service';
+import {AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'add-category',
@@ -15,7 +16,7 @@ export class AddCategoryPage implements OnInit {
   searchString: string = '';
 
   constructor(public categoryService: CategoryService, public toastCtrl: ToastController,
-   public navCtrl: NavController) {}
+   public navCtrl: NavController, public authService: AuthService) {}
 
   ngOnInit() {
     this.loadCategories();
@@ -37,7 +38,8 @@ export class AddCategoryPage implements OnInit {
 
   save() {
     const category = {
-      name: this.newCategory
+      name: this.newCategory,
+      user: this.authService.getUsername()
     }
     this.categoryService.saveCategory(category)
       .subscribe((status: boolean) => {

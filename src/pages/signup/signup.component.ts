@@ -30,8 +30,7 @@ export class SignUpPage {
         this.authService.register(user)
             .subscribe((user) => {
                 if(user) {
-                    const token = btoa( user.username+ ':' + user.password);
-                    this.authService.setToken(token);
+                    this.authService.setUserToken(user);
                     this.navCtrl.setRoot(ViewTasksPage);
                      this.storage.set('user', JSON.stringify(user));
                 } else {

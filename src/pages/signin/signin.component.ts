@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastController, NavController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -11,25 +11,31 @@ import { AuthService } from '../../services/auth.service';
   selector: 'signin',
   templateUrl: 'signin.component.html'
 })
-export class SignInPage {
+export class SignInPage implements OnInit{
 
     signInForm : FormGroup;
 
     constructor(public toastCtrl: ToastController, public navCtrl: NavController,
         public authService: AuthService, public fb: FormBuilder, public storage: Storage) {
+        this.storage.get('user').then(user => {
+            if(user != null) {
+                this.signin(JSON.parse(user));
+            }
+        })
+    }
+
+    ngOnInit() {
         this.signInForm = this.fb.group({  
             'username': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(8)])]
         });
     }
 
-    signin() {
-        const user = this.signInForm.value;
+    signin(user: any) {
         this.authService.login(user)
             .subscribe((response: any) => {
                 if(response.status == 200) {
-                    const token = btoa( user.username+ ':' + user.password);
-                    this.authService.setToken(token);
+                    this.authService.setUserToken(user);
                     this.navCtrl.setRoot(ViewTasksPage);
                     this.storage.set('user', JSON.stringify(user));
                 } else {

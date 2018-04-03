@@ -4,6 +4,7 @@ import { ToastController, NavController, NavParams } from 'ionic-angular';
 import { AddCategoryPage } from '../category/add-category.component';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'add-task',
@@ -16,7 +17,8 @@ export class AddTaskPage implements OnInit {
   edit: boolean;
 
   constructor(public categoryService: CategoryService, public taskService: TaskService,
-   public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams) { }
+   public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams,
+   public authService: AuthService) { }
 
   ngOnInit() {
     this.loadCategories();
@@ -60,6 +62,7 @@ export class AddTaskPage implements OnInit {
         });
         toast.present();
     } else {
+      this.task.user = this.authService.getUsername();
       this.taskService.saveTask(this.task)
         .subscribe((status: boolean) => {
           if(status) {
