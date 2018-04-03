@@ -4,7 +4,7 @@ import { Observable} from 'rxjs/Rx';
 
 const LOGIN_URL:string = 'https://workout-tracker-server.herokuapp.com/login';
 const REGISTER_URL:string = 'https://workout-tracker-server.herokuapp.com/register';
-const LOGOUT_URL = 'https://workout-tracker-server.herokuapp.com/logout';
+//const LOGOUT_URL = 'https://workout-tracker-server.herokuapp.com/logout';
 
 @Injectable()
 export class AuthService implements HttpInterceptor {
@@ -31,13 +31,6 @@ export class AuthService implements HttpInterceptor {
         headers.append("Authorization", "Basic " + base64Credential);
 
         return this.httpClient.post(LOGIN_URL, user, { headers, observe: 'response' });
-    }
-
-    logout() {
-        return this.httpClient.post(LOGOUT_URL, {})
-        .subscribe(() => {
-            localStorage.removeItem('access_token');
-        });
     }
 
     setUserToken(user: any) {

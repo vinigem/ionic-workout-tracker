@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 import { SignInPage } from '../pages/signin/signin.component';
 import { ViewTasksPage } from '../pages/task/view-tasks.component';
@@ -21,7 +22,7 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen, public storage: Storage) {
     this.initializeApp();
 
     this.pages = [
@@ -41,6 +42,13 @@ export class MyApp {
 
   openPage(page) {
     this.nav.setRoot(page.component);
+  }
+
+  logout() {
+    this.storage.remove('user').then(user => {
+      localStorage.removeItem('access_token');
+      this.nav.setRoot(SignInPage);
+    });
   }
   
 }

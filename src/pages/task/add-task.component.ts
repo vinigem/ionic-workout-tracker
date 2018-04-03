@@ -70,7 +70,7 @@ export class AddTaskPage implements OnInit {
             if(this.edit) {
               this.goBack();
             } else {
-              this.task = {};
+              location.reload();
             }
           } else {
             message = 'Task was not saved';
