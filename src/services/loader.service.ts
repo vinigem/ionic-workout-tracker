@@ -43,7 +43,7 @@ export class LoaderService implements HttpInterceptor {
         console.log('show');
         this.loader = this.loadingCtrl.create({
             content: 'Please wait...',
-            duration: 2000
+            duration: 5000
         });
         this.loader.present();
     }
