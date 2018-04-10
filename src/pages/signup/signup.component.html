@@ -7,23 +7,23 @@
       <ion-list>
         <form [formGroup]="signUpForm" (ngSubmit)="signup()">
           <ion-item>
-            <ion-label floating>Name</ion-label>
+            <ion-label stacked>Name</ion-label>
             <ion-input type="text" formControlName="name"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label floating>Email</ion-label>
+            <ion-label stacked>Email</ion-label>
             <ion-input type="email" formControlName="email" (keydown.space)="$event.preventDefault();"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label floating>Username</ion-label>
-            <ion-input type="text" formControlName="username" (keydown.space)="$event.preventDefault();"></ion-input>
+            <ion-label stacked>Username</ion-label>
+            <ion-input type="text" formControlName="username" placeholder="Min 6 chars" (keydown.space)="$event.preventDefault();"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label floating>Password</ion-label>
-            <ion-input type="password" formControlName="password" (keydown.space)="$event.preventDefault();"></ion-input>
+            <ion-label stacked>Password</ion-label>
+            <ion-input type="password" formControlName="password" placeholder="Min 8 chars" (keydown.space)="$event.preventDefault();"></ion-input>
           </ion-item>
 
           <div padding>
