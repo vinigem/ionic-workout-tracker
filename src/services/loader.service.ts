@@ -40,7 +40,6 @@ export class LoaderService implements HttpInterceptor {
     }
 
     showOverlay() {
-        console.log('show');
         this.loader = this.loadingCtrl.create({
             content: 'Please wait...',
             duration: 10000
@@ -49,7 +48,6 @@ export class LoaderService implements HttpInterceptor {
     }
 
     hideOverlay() {
-        console.log('hide');
         this.loader.dismiss();
     }
 

@@ -27,7 +27,8 @@ export class SignInPage implements OnInit{
     ngOnInit() {
         this.signInForm = this.fb.group({  
             'username': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-            'password': ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+            'password': ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+            'rememberMe': []
         });
     }
 
@@ -37,7 +38,9 @@ export class SignInPage implements OnInit{
                 if(response.status == 200) {
                     this.authService.setUserToken(user);
                     this.navCtrl.setRoot(ViewTasksPage);
-                    this.storage.set('user', JSON.stringify(user));
+                    if(user.rememberMe) {
+                        this.storage.set('user', JSON.stringify(user));
+                    }
                 } else {
                     let toast = this.toastCtrl.create({
                         message: 'Sign In failed',
@@ -46,6 +49,14 @@ export class SignInPage implements OnInit{
                     });
                     toast.present();
                 }
+            },
+            (error) => {
+                let toast = this.toastCtrl.create({
+                    message: 'Sign In failed',
+                    duration: 3000,
+                    position: 'top'
+                });
+                toast.present();    
             });    
     }
 

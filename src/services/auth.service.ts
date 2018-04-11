@@ -35,13 +35,13 @@ export class AuthService implements HttpInterceptor {
 
     setUserToken(user: any) {
         const token = btoa(user.username + ':' + user.password);
-        localStorage.setItem('access_token', token);
+        sessionStorage.setItem('access_token', token);
         this.username = user.username;
     }
   
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = localStorage.getItem('access_token');
+        const token = sessionStorage.getItem('access_token');
         if (REGISTER_URL != request.url && token) {
             // Add auth token
             request = request.clone({

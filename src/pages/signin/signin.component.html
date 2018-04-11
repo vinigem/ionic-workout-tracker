@@ -16,6 +16,11 @@
             <ion-input type="password" formControlName="password" (keydown.space)="$event.preventDefault();"></ion-input>
           </ion-item>
 
+          <ion-item>
+            <ion-label>Remember Me</ion-label>
+            <ion-checkbox formControlName="rememberMe"></ion-checkbox>
+          </ion-item>
+
           <div padding>
             <button type="submit" ion-button block [disabled]="!signInForm.valid">Sign In</button>
           </div>

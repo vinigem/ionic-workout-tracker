@@ -46,7 +46,7 @@ export class MyApp {
 
   logout() {
     this.storage.remove('user').then(user => {
-      localStorage.removeItem('access_token');
+      sessionStorage.removeItem('access_token');
       this.nav.setRoot(SignInPage);
     });
   }
