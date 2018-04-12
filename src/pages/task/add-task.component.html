@@ -3,7 +3,8 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Add Task</ion-title>
+    <ion-title *ngIf="!edit">Add Task</ion-title>
+    <ion-title *ngIf="edit">Edit Task</ion-title>
   </ion-navbar>
 </ion-header>
 
