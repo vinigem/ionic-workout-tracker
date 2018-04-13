@@ -16,12 +16,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-textarea placeholder="Note"></ion-textarea>
+      <ion-textarea placeholder="Note" [(ngModel)]="task.note"></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Calories Burnt Per Min</ion-label>
-      <ion-input type="number" [(ngModel)]="task.calories" value="0"></ion-input>
+      <ion-input type="number" [(ngModel)]="task.calories"></ion-input>
       <button ion-button item-end (click)="increment();" color="secondary">
         <ion-icon name='add-circle'></ion-icon>
       </button>

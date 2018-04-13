@@ -64,7 +64,7 @@ export class AddTaskPage implements OnInit {
         toast.present();
     } else {
       this.task.user = this.authService.getUsername();
-      this.taskService.saveTask(this.task, this.edit)
+      this.taskService.saveTask(this.task, this.edit != null)
         .subscribe((status: string) => {
           if(status == 'SUCCESS') {
             message = 'Task saved successfully';

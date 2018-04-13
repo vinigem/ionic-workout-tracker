@@ -17,7 +17,7 @@ export class TaskService {
     }
 
     saveTask(task: any, edit: boolean): Observable<string> {
-        return this.httpClient.post(SAVE_TASK_SERVICE_URL+edit, task);
+        return this.httpClient.post(SAVE_TASK_SERVICE_URL+edit, task, {responseType: 'text'});
     }
 
     deleteTask(title: string): Observable<any> {

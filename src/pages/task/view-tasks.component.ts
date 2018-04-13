@@ -20,14 +20,13 @@ export class ViewTasksPage implements OnInit {
   
   constructor(public taskService: TaskService, public workoutService: WorkoutService,
    public toastCtrl: ToastController, public navCtrl: NavController, public authService: AuthService,
-   public events: Events) {
-    events.subscribe('stoppedTimer', () => {
-      this.stopTask();
-    });
-   }
+   public events: Events) {}
 
   ngOnInit() {
     this.loadTasks();
+    this.events.subscribe('stoppedTimer', () => {
+      this.stopTask();
+    });
   }
 
   loadTasks() {

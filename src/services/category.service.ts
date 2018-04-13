@@ -16,7 +16,7 @@ export class CategoryService {
     }
 
     saveCategory(category: any): Observable<string> {
-        return this.httpClient.post(SAVE_CATEGORY_SERVICE_URL, category);
+        return this.httpClient.post(SAVE_CATEGORY_SERVICE_URL, category, {responseType: 'text'});
     }
 
     deleteCategory(categoryName: any): Observable<any> {
