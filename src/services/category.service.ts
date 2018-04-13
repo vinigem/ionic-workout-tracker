@@ -15,7 +15,7 @@ export class CategoryService {
         return this.httpClient.get(GET_ALL_CATEGORIES_SERVICE_URL);
     }
 
-    saveCategory(category: any): Observable<any> {
+    saveCategory(category: any): Observable<string> {
         return this.httpClient.post(SAVE_CATEGORY_SERVICE_URL, category);
     }
 

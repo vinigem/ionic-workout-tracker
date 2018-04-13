@@ -42,13 +42,15 @@ export class AddCategoryPage implements OnInit {
       user: this.authService.getUsername()
     }
     this.categoryService.saveCategory(category)
-      .subscribe((status: boolean) => {
+      .subscribe((status: string) => {
         let message: string;
-        if(status) {
+        if(status == 'SUCCESS') {
           message = 'Category saved successfully';
           this.loadCategories();
-        } else {
+        } else if(status == 'ERROR') {
           message = 'Category was not saved';
+        } else if(status == 'EXIST') {
+          message = 'Category already exist';
         }
         let toast = this.toastCtrl.create({
           message: message,
@@ -62,12 +64,12 @@ export class AddCategoryPage implements OnInit {
 
   update(category: any) {
     this.categoryService.saveCategory(category)
-      .subscribe((status: boolean) => {
+      .subscribe((status: string) => {
         let message: string;
-        if(status) {
+        if(status == 'SUCCESS') {
           message = 'Category updated successfully';
           this.loadCategories();
-        } else {
+        } else if( status == 'ERROR') {
           message = 'Category was not updated';
         }
         let toast = this.toastCtrl.create({

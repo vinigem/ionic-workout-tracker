@@ -64,17 +64,19 @@ export class AddTaskPage implements OnInit {
         toast.present();
     } else {
       this.task.user = this.authService.getUsername();
-      this.taskService.saveTask(this.task)
-        .subscribe((status: boolean) => {
-          if(status) {
+      this.taskService.saveTask(this.task, this.edit)
+        .subscribe((status: string) => {
+          if(status == 'SUCCESS') {
             message = 'Task saved successfully';
             if(this.edit) {
               this.goBack();
             } else {
               this.navCtrl.setRoot(ViewTasksPage);
             }
-          } else {
+          } else if(status == 'ERROR') {
             message = 'Task was not saved';
+          } else if(status == 'EXIST') {
+            message = 'Task already exist';
           }
           let toast = this.toastCtrl.create({
             message: message,
