@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController, NavController, NavParams } from 'ionic-angular';
 
 import { AddCategoryPage } from '../category/add-category.component';
+import { ViewTasksPage } from './view-tasks.component';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AuthService } from '../../services/auth.service';
@@ -70,7 +71,7 @@ export class AddTaskPage implements OnInit {
             if(this.edit) {
               this.goBack();
             } else {
-              location.reload();
+              this.navCtrl.setRoot(ViewTasksPage);
             }
           } else {
             message = 'Task was not saved';
