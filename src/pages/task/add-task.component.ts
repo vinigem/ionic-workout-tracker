@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, NavController, NavParams } from 'ionic-angular';
+import { ToastController, NavController, NavParams, Events } from 'ionic-angular';
 
 import { AddCategoryPage } from '../category/add-category.component';
 import { ViewTasksPage } from './view-tasks.component';
@@ -19,10 +19,11 @@ export class AddTaskPage implements OnInit {
 
   constructor(public categoryService: CategoryService, public taskService: TaskService,
    public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams,
-   public authService: AuthService) { }
+   public authService: AuthService, public events: Events) { }
 
   ngOnInit() {
     this.loadCategories();
+    
     if(this.navParams.get('title')) {
       this.task = {
         title: this.navParams.get('title'),
@@ -32,6 +33,10 @@ export class AddTaskPage implements OnInit {
       };
       this.edit = true;
     }
+
+    this.events.subscribe('categoryModified', () => {
+      this.loadCategories();
+    });
   }
 
   loadCategories() {
@@ -89,6 +94,7 @@ export class AddTaskPage implements OnInit {
   }
 
   increment() {
+    this.task.calories = this.task.calories == null ? 0 : this.task.calories;
     this.task.calories = parseFloat((parseFloat(this.task.calories) + 0.1).toFixed(1));
   }
 

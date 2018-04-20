@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, NavController } from 'ionic-angular';
+import { ToastController, NavController, Events } from 'ionic-angular';
 
 import { CategoryService } from '../../services/category.service';
 import {AuthService } from '../../services/auth.service';
@@ -16,7 +16,7 @@ export class AddCategoryPage implements OnInit {
   searchString: string = '';
 
   constructor(public categoryService: CategoryService, public toastCtrl: ToastController,
-   public navCtrl: NavController, public authService: AuthService) {}
+   public navCtrl: NavController, public authService: AuthService, public events: Events) {}
 
   ngOnInit() {
     this.loadCategories();
@@ -47,6 +47,7 @@ export class AddCategoryPage implements OnInit {
         if(status == 'SUCCESS') {
           message = 'Category saved successfully';
           this.loadCategories();
+          this.events.publish('categoryModified');
         } else if(status == 'ERROR') {
           message = 'Category was not saved';
         } else if(status == 'EXIST') {
@@ -69,6 +70,7 @@ export class AddCategoryPage implements OnInit {
         if(status == 'SUCCESS') {
           message = 'Category updated successfully';
           this.loadCategories();
+          this.events.publish('categoryModified');
         } else if( status == 'ERROR') {
           message = 'Category was not updated';
         }
@@ -88,6 +90,7 @@ export class AddCategoryPage implements OnInit {
         if(status) {
           message = 'Category deleted successfully';
           this.loadCategories();
+          this.events.publish('categoryModified');
         } else {
           message = 'Category was not deleted';
         }
