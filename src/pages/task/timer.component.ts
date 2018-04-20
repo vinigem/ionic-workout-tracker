@@ -23,13 +23,15 @@ export class Timer {
     timer: string;
     timerTask: any;
     show: boolean;
+    workout: any;
             
     constructor(public events: Events) {
-        events.subscribe('showTimer', (startTime) => {
-            this.startTimer(startTime);
+        events.subscribe('showTimer', (workout: any) => {
+            this.workout = workout;
+            this.startTimer(workout.startTime);
             this.show = true;
             this.timerTask = setInterval(() => {
-                this.startTimer(startTime);
+                this.startTimer(workout.startTime);
             }, 1000);
         });
     }
@@ -48,7 +50,9 @@ export class Timer {
     stopTimer() {
         clearInterval(this.timerTask);
         this.show = false;
-        this.events.publish('stoppedTimer');
+        this.workout.endTime = new Date();
+        this.events.publish('stoppedTimer', this.workout);
+        this.workout = null;
     }
      
 }

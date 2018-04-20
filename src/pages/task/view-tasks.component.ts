@@ -15,7 +15,6 @@ export class ViewTasksPage implements OnInit {
   tasks: any;
   fileteredTasks: any;
   searchString: string = '';
-  workout: any;
   workoutPopup: any;
   
   constructor(public taskService: TaskService, public workoutService: WorkoutService,
@@ -24,8 +23,8 @@ export class ViewTasksPage implements OnInit {
 
   ngOnInit() {
     this.loadTasks();
-    this.events.subscribe('stoppedTimer', () => {
-      this.stopTask();
+    this.events.subscribe('stoppedTimer', (workout: any) => {
+      this.stopTask(workout);
     });
   }
 
@@ -67,22 +66,20 @@ export class ViewTasksPage implements OnInit {
   }
   
   startTask(task: any) {
-    this.workout = {
+    const workout = {
       task: task.title,
       startTime: new Date()
     };
-    this.events.publish('showTimer', this.workout.startTime);
+    this.events.publish('showTimer', workout);
   }
 
-  stopTask() {
-    this.workout.endTime = new Date();
-    this.workout.user = this.authService.getUsername();
-    this.workoutService.saveWorkout(this.workout)
+  stopTask(workout: any) {
+    workout.user = this.authService.getUsername();
+    this.workoutService.saveWorkout(workout)
       .subscribe((status: boolean) => {
         let message: string;
         if(status) {
           message = 'Workout saved successfully';
-          this.workout = null;
         } else {
           message = 'Workout was not saved';
         }
