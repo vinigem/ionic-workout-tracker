@@ -22,6 +22,9 @@ export class ViewTasksPage implements OnInit {
    public events: Events) {
       this.events.subscribe('stoppedTimer', (workout: any) => {
         this.stopTask(workout);
+        this.navCtrl.setRoot('ViewTasksPage').then(() => {
+          this.events.unsubscribe('stoppedTimer');
+        });
       });
    }
 
