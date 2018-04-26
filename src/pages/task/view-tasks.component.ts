@@ -96,9 +96,4 @@ export class ViewTasksPage implements OnInit {
       });
   }
 
-  ngOnDestroy(){
-    this.event.unsubscribe('stoppedTimer');
-  }
- 
-
 }
