@@ -19,20 +19,19 @@
 
     <ion-row>
       <ion-col style="width: 30%">
-        <button ion-button style="width: 100%" (click)="editTask(task);" [disabled]="workout != null">
+        <button ion-button style="width: 100%" (click)="editTask(task);">
           <ion-icon name='create'></ion-icon>&nbsp; Edit
         </button>
       </ion-col>
       
       <ion-col style="width: 30%">
-        <button ion-button style="width: 100%" color="danger" (click)="deleteTask(task);" [disabled]="workout != null">
+        <button ion-button style="width: 100%" color="danger" (click)="deleteTask(task);">
           <ion-icon name='trash'></ion-icon>&nbsp; Delete
         </button>
       </ion-col>
       
       <ion-col style="width: 30%">
-        <button ion-button style="width: 100%" color="secondary" (click)="startTask(task);"
-          [disabled]="(workout != null && task.title === workout.task) || workout != null">
+        <button ion-button style="width: 100%" color="secondary" (click)="startTask(task);">
           <ion-icon name='stopwatch'></ion-icon>&nbsp; Start
         </button>
       </ion-col>
