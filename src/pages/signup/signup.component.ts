@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ToastController, NavController } from 'ionic-angular';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { NavController } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 
 import { SignInPage } from '../signin/signin.component';
 import { ViewTasksPage } from '../task/view-tasks.component';
 import { AuthService } from '../../services/auth.service';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'signup',
@@ -15,7 +16,7 @@ export class SignUpPage {
 
     signUpForm : FormGroup;
 
-    constructor(public toastCtrl: ToastController, public navCtrl: NavController,
+    constructor(public messageService: MessageService, public navCtrl: NavController,
         public authService: AuthService, public fb: FormBuilder, public storage: Storage) {
         this.signUpForm = this.fb.group({  
             'name': ['', Validators.required],
@@ -34,12 +35,7 @@ export class SignUpPage {
                     this.navCtrl.setRoot(ViewTasksPage);
                      this.storage.set('user', JSON.stringify(user));
                 } else {
-                    let toast = this.toastCtrl.create({
-                        message: 'Sign Up failed',
-                        duration: 3000,
-                        position: 'top'
-                    });
-                    toast.present();
+                    this.messageService.showMessage('Sign Up failed');
                 }
             });    
     }

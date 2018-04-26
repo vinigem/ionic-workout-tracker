@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Events } from 'ionic-angular';
 
 @Component({
@@ -18,7 +18,7 @@ import { Events } from 'ionic-angular';
     <div class="modal-overlay" *ngIf="show">   
   `
 })
-export class Timer {
+export class Timer implements OnDestroy {
     
     timer: string;
     timerTask: any;
@@ -53,6 +53,10 @@ export class Timer {
         this.workout.endTime = new Date();
         this.events.publish('stoppedTimer', this.workout);
         this.workout = null;
+    }
+
+    ngOnDestroy() {
+        this.events.unsubscribe('showTimer');
     }
      
 }

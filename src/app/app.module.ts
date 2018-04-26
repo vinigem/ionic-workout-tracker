@@ -20,6 +20,7 @@ import { TaskService } from '../services/task.service';
 import { WorkoutService } from '../services/workout.service';
 import { LoaderService } from '../services/loader.service';
 import { AuthService } from '../services/auth.service';
+import { MessageService } from '../services/message.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,7 +43,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   providers: [
     StatusBar, SplashScreen, {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CategoryService, TaskService, WorkoutService, AuthService, 
+    CategoryService, TaskService, WorkoutService, AuthService, MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthService, multi: true }
   ]

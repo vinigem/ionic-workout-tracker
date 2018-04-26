@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, NavController, Events } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 
 import { CategoryService } from '../../services/category.service';
-import {AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'add-category',
@@ -15,7 +16,7 @@ export class AddCategoryPage implements OnInit {
   newCategory: string;
   searchString: string = '';
 
-  constructor(public categoryService: CategoryService, public toastCtrl: ToastController,
+  constructor(public categoryService: CategoryService, public messageService: MessageService,
    public navCtrl: NavController, public authService: AuthService, public events: Events) {}
 
   ngOnInit() {
@@ -53,12 +54,7 @@ export class AddCategoryPage implements OnInit {
         } else if(status == 'EXIST') {
           message = 'Category already exist';
         }
-        let toast = this.toastCtrl.create({
-          message: message,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present(); 
+        this.messageService.showMessage(message); 
         this.newCategory = null;
       });    
   }
@@ -74,12 +70,7 @@ export class AddCategoryPage implements OnInit {
         } else if( status == 'ERROR') {
           message = 'Category was not updated';
         }
-        let toast = this.toastCtrl.create({
-          message: message,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present(); 
+        this.messageService.showMessage(message); 
       });  
   }
 
@@ -94,12 +85,7 @@ export class AddCategoryPage implements OnInit {
         } else {
           message = 'Category was not deleted';
         }
-        let toast = this.toastCtrl.create({
-          message: message,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present(); 
+        this.messageService.showMessage(message); 
       });  
   }
 

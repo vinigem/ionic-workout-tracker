@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, NavParams, Events } from 'ionic-angular';
 
 import { AddCategoryPage } from '../category/add-category.component';
 import { ViewTasksPage } from './view-tasks.component';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AuthService } from '../../services/auth.service';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'add-task',
@@ -18,7 +19,7 @@ export class AddTaskPage implements OnInit {
   edit: boolean;
 
   constructor(public categoryService: CategoryService, public taskService: TaskService,
-   public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams,
+   public messageService: MessageService, public navCtrl: NavController, public navParams: NavParams,
    public authService: AuthService, public events: Events) { }
 
   ngOnInit() {
@@ -61,12 +62,7 @@ export class AddTaskPage implements OnInit {
     }
 
     if(message != null) {
-      let toast = this.toastCtrl.create({
-          message: message,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present();
+      this.messageService.showMessage(message);
     } else {
       this.task.user = this.authService.getUsername();
       this.taskService.saveTask(this.task, this.edit != null)
@@ -83,12 +79,7 @@ export class AddTaskPage implements OnInit {
           } else if(status == 'EXIST') {
             message = 'Task already exist';
           }
-          let toast = this.toastCtrl.create({
-            message: message,
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
+          this.messageService.showMessage(message);
         });
     }
   }

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastController, NavController, Events } from 'ionic-angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NavController, Events } from 'ionic-angular';
 
 import { TaskService } from '../../services/task.service';
 import { WorkoutService } from '../../services/workout.service';
 import { AuthService } from '../../services/auth.service';
+import { MessageService } from '../../services/message.service';
 import { AddTaskPage } from './add-task.component';
 
 @Component({
   selector: 'view-tasks',
   templateUrl: 'view-tasks.component.html'
 })
-export class ViewTasksPage implements OnInit {
+export class ViewTasksPage implements OnInit, OnDestroy {
 
   tasks: any;
   fileteredTasks: any;
@@ -18,13 +19,10 @@ export class ViewTasksPage implements OnInit {
   workoutPopup: any;
   
   constructor(public taskService: TaskService, public workoutService: WorkoutService,
-   public toastCtrl: ToastController, public navCtrl: NavController, public authService: AuthService,
+   public messageService: MessageService, public navCtrl: NavController, public authService: AuthService,
    public events: Events) {
       this.events.subscribe('stoppedTimer', (workout: any) => {
         this.stopTask(workout);
-        this.navCtrl.setRoot('ViewTasksPage').then(() => {
-          this.events.unsubscribe('stoppedTimer');
-        });
       });
    }
 
@@ -60,12 +58,7 @@ export class ViewTasksPage implements OnInit {
         } else {
           message = 'Task was not deleted';
         }
-        let toast = this.toastCtrl.create({
-          message: message,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present(); 
+        this.messageService.showMessage(message);
       });
   }
   
@@ -87,13 +80,12 @@ export class ViewTasksPage implements OnInit {
         } else {
           message = 'Workout was not saved';
         }
-        let toast = this.toastCtrl.create({
-          message: message,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present();
+        this.messageService.showMessage(message);
       });
   }
 
+  ngOnDestroy() {
+    this.events.unsubscribe('stoppedTimer');
+  }
+  
 }
